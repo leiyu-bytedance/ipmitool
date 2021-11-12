@@ -11,12 +11,15 @@ jobs:
   linux:
     strategy:
       matrix:
-        os: [ ubuntu-16.04, ubuntu-18.04, ubuntu-20.04 ]
-    runs-on: ${{ matrix.os }}
+        os: [ ubuntu-20.04 ]
+    runs-on: [ self-hosted ]
+    env:
+      DEBIAN_FRONTEND: noninteractive
     steps:
     - name: install dependencies
       run: |
-        sudo apt install \
+        sudo apt update
+        sudo apt install -yy \
           automake \
           gcc \
           git \
@@ -30,7 +33,7 @@ jobs:
       # needed for normal user builds:
       run: |
         sudo apt update
-        sudo apt install \
+        sudo apt install -yy \
           libsystemd-dev \
           libreadline-dev \
           libfreeipmi-dev \
